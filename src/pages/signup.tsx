@@ -26,7 +26,7 @@ const Signup = () => {
     handleSubmit,
   } = useForm<IFormInput>();
 
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   const router = useRouter();
 

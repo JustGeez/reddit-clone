@@ -6,7 +6,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../theme";
 import createEmotionCache from "../createEmotionCache";
-import Amplify, { Auth } from "aws-amplify";
+import Amplify from "aws-amplify";
 import awsConfig from "../aws-exports";
 import AuthContext from "../context/AuthContext";
 

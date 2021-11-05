@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Auth } from "aws-amplify";
 import { useUser } from "../context/AuthContext";
-import { CognitoUser } from "@aws-amplify/auth";
 import { useRouter } from "next/router";
 
 interface IFormInput {
@@ -17,7 +16,6 @@ const Signin = () => {
   /** STATE */
   const [snackbarOpen, setSnackbarOpen] = useState<boolean>(false);
   const [snackbarErrorMessage, setSnackbarErrorMessage] = useState<string>("");
-  const [showCode, setShowCode] = useState<boolean>(false);
 
   /** HOOKS */
   const {
@@ -35,9 +33,12 @@ const Signin = () => {
     const amplifyUser = await Auth.signIn(data.username, data.password);
 
     if (amplifyUser) {
+      setUser(amplifyUser);
       router.push("/");
     } else {
-      console.log("Something went wrong with sign-up");
+      setSnackbarErrorMessage("Something went wrong with sign-in");
+      setSnackbarOpen(true);
+      console.log("Something went wrong with sign-in");
     }
   };
 
