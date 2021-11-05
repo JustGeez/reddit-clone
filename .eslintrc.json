@@ -14,6 +14,9 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    "valid-jsdoc": "off"
   }
 }
