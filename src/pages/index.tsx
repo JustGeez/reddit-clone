@@ -6,6 +6,8 @@ import { useUser } from "../context/AuthContext";
 import { ListPostsQuery, Post } from "../API";
 import { listPosts } from "../graphql/queries";
 import PostPreview from "../components/PostPreview";
+import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 const Home: NextPage = () => {
   const { user } = useUser();
@@ -33,11 +35,13 @@ const Home: NextPage = () => {
   console.log("POSTS:", posts);
 
   return (
-    <Container maxWidth="md">
-      {posts.map((post) => (
-        <PostPreview key={post.id} post={post} />
-      ))}
-    </Container>
+    <Layout>
+      <Container maxWidth="md">
+        {posts.map((post) => (
+          <PostPreview key={post.id} post={post} />
+        ))}
+      </Container>
+    </Layout>
   );
 };
 

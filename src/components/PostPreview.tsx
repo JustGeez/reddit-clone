@@ -4,12 +4,22 @@ import { Box } from "@mui/system";
 import React, { ReactElement } from "react";
 import { Post } from "../API";
 import Image from "next/image";
+import { ButtonBase } from "@mui/material";
+import { useRouter } from "next/router";
 
 interface Props {
   post: Post;
 }
 
 function PostPreview({ post }: Props): ReactElement {
+  /** Hooks */
+  const router = useRouter();
+
+  /** Component functions */
+  const handlePostClick = (id: string) => {
+    router.push(`/post/${id}`);
+  };
+
   return (
     <Paper elevation={3} sx={{ marginTop: 2, padding: 1 }}>
       <Grid container direction="row">
@@ -46,27 +56,30 @@ function PostPreview({ post }: Props): ReactElement {
 
         {/** Content Preview */}
         <Grid item xs={10}>
-          <Grid container direction="column">
-            <Grid item>
-              <Typography variant="body1">
-                Posted by <strong>{post.owner}</strong> at{" "}
-                <strong>{new Date(post.createdAt).toDateString()}</strong>
-              </Typography>
-            </Grid>
-
-            <Grid item>
-              <Typography variant="h2">{post.title}</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body1">{post.contents}</Typography>
-            </Grid>
-
-            {post.image && (
+          <ButtonBase onClick={() => handlePostClick(post.id)}>
+            <Grid container direction="column" alignItems="flex-start">
               <Grid item>
-                <Image src={`/vercel.svg`} width={200} height={200} />
+                <Typography variant="body1">
+                  Posted by <strong>{post.owner}</strong> at{" "}
+                  <strong>{new Date(post.createdAt).toDateString()}</strong>
+                </Typography>
               </Grid>
-            )}
-          </Grid>
+
+              <Grid item>
+                <Typography variant="h2">{post.title}</Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography variant="body1">{post.contents}</Typography>
+              </Grid>
+
+              {post.image && (
+                <Grid item>
+                  <Image src={`/vercel.svg`} width={200} height={200} />
+                </Grid>
+              )}
+            </Grid>
+          </ButtonBase>
         </Grid>
       </Grid>
     </Paper>
