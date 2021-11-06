@@ -8,10 +8,11 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useUser } from "../context/AuthContext";
-import { Button, ButtonBase } from "@mui/material";
+import { Button, ButtonBase, Tooltip } from "@mui/material";
 import Auth from "@aws-amplify/auth";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
+import { Add } from "@mui/icons-material";
 
 export default function Header() {
   const { user } = useUser();
@@ -49,6 +50,14 @@ export default function Header() {
           </NextLink>
           {user ? (
             <div>
+              <NextLink href="/create" passHref>
+                <Tooltip title="Create post">
+                  <IconButton size="large" aria-label="Add new post" color="inherit">
+                    <Add />
+                  </IconButton>
+                </Tooltip>
+              </NextLink>
+
               <IconButton
                 size="large"
                 aria-label="account of current user"

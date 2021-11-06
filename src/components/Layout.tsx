@@ -10,6 +10,7 @@ const Layout = ({ children }: Props) => {
   return (
     <Container maxWidth="xl">
       <Header />
+      <br />
       {children}
     </Container>
   );
