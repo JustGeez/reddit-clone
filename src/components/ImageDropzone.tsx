@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import NextImage from "next/image";
-import { Paper } from "@mui/material";
+import { ButtonBase, Paper } from "@mui/material";
+import { Box } from "@mui/system";
 
 interface Props {}
 
 const ImageDropzone = (props: Props) => {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
+    maxFiles: 1,
     accept: "image/*",
     onDrop: (acceptedFiles) => {
       setFiles(
@@ -37,13 +39,18 @@ const ImageDropzone = (props: Props) => {
   );
 
   return (
-    <Paper sx={{ bgcolor: "rgba(225,225,225,0.35)", padding: 1 }}>
-      <div {...getRootProps({ className: "dropzone" })}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-      <aside>{thumbs}</aside>
-    </Paper>
+    <ButtonBase sx={{ width: "100%" }}>
+      <Paper sx={{ bgcolor: "rgba(225,225,225,0.35)", padding: 1, width: "100%" }}>
+        <Box
+          {...getRootProps({ className: "dropzone" })}
+          sx={{ border: "2px dotted white", borderRadius: 1, padding: 1 }}
+        >
+          <input {...getInputProps()} />
+          <p>Drag &amp; drop some files here, or click to select files</p>
+        </Box>
+        <aside>{thumbs}</aside>
+      </Paper>
+    </ButtonBase>
   );
 };
 
