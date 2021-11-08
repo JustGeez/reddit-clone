@@ -50,5 +50,11 @@
         }
       }
     }
+  },
+  "storage": {
+    "redditcloneimages": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

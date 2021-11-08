@@ -1,6 +1,6 @@
 {
     "identityPoolName": "redditcloneef72ca9c_identitypool_ef72ca9c",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "redditef72ca9c",
     "userPoolName": "redditcloneef72ca9c_userpool_ef72ca9c",
     "autoVerifiedAttributes": [
