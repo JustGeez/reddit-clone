@@ -88,7 +88,7 @@ function PostPreview({ post }: Props): ReactElement {
                 <Typography variant="body1">{post.contents}</Typography>
               </Grid>
 
-              {postImage && (
+              {post.image && postImage && (
                 <Grid item>
                   <Image src={postImage} width={350} height={350} />
                 </Grid>

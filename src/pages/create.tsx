@@ -62,6 +62,27 @@ const Create = (props: Props) => {
       } catch (error) {
         console.log("Error uploading file: ", error);
       }
+    } else {
+      try {
+        const createNewPostInput: CreatePostInput = {
+          title: data.title,
+          contents: data.content,
+          upvotes: 0,
+          downvotes: 0,
+        };
+
+        const createNewPost = (await API.graphql({
+          query: createPost,
+          variables: { input: createNewPostInput },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+        })) as { data: CreatePostMutation };
+
+        console.log("New post created: ", createNewPost);
+
+        router.push(`/post/${createNewPost.data.createPost.id}`);
+      } catch (error) {
+        console.log("Error creating post: ", error);
+      }
     }
   };
 
