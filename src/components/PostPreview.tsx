@@ -1,19 +1,34 @@
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
 import { Grid, IconButton, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { Post } from "../API";
 import Image from "next/image";
 import { ButtonBase } from "@mui/material";
 import { useRouter } from "next/router";
+import Storage from "@aws-amplify/storage";
 
 interface Props {
   post: Post;
 }
 
 function PostPreview({ post }: Props): ReactElement {
+  /** State */
+  const [postImage, setPostImage] = useState<string | undefined>(undefined);
+
   /** Hooks */
   const router = useRouter();
+
+  useEffect(() => {
+    const getImageFromStorage = async () => {
+      try {
+        const signedURL = await Storage.get(post.image);
+        setPostImage(signedURL);
+      } catch (error) {}
+    };
+
+    getImageFromStorage();
+  }, []);
 
   /** Component functions */
   const handlePostClick = (id: string) => {
@@ -73,9 +88,9 @@ function PostPreview({ post }: Props): ReactElement {
                 <Typography variant="body1">{post.contents}</Typography>
               </Grid>
 
-              {post.image && (
+              {postImage && (
                 <Grid item>
-                  <Image src={`/vercel.svg`} width={200} height={200} />
+                  <Image src={postImage} width={350} height={350} />
                 </Grid>
               )}
             </Grid>
