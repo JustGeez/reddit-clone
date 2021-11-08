@@ -1,8 +1,14 @@
+import Storage from "@aws-amplify/storage";
 import { Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { ReactEventHandler, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ImageDropzone from "../components/ImageDropzone";
+import { v4 as uuidv4 } from "uuid";
 import Layout from "../components/Layout";
+import API from "@aws-amplify/api";
+import { CreatePostInput, CreatePostMutation } from "../API";
+import { createPost } from "../graphql/mutations";
+import router from "next/router";
 
 interface Props {}
 
@@ -14,6 +20,7 @@ interface IFormInput {
 
 const Create = (props: Props) => {
   /** State */
+  const [file, setFile] = useState<File>();
 
   /** Hooks */
   const {
@@ -24,7 +31,38 @@ const Create = (props: Props) => {
 
   /** Functions */
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    // Push the data using gql api
+    if (file) {
+      // user uploaded file
+      console.log(file);
+
+      // Send request to upload to s3
+      try {
+        const imagePath = uuidv4();
+
+        await Storage.put(imagePath, file, { contentType: file.type });
+        console.log("File upload to s3 success");
+
+        const createNewPostInput: CreatePostInput = {
+          title: data.title,
+          contents: data.content,
+          image: imagePath,
+          upvotes: 0,
+          downvotes: 0,
+        };
+
+        const createNewPost = (await API.graphql({
+          query: createPost,
+          variables: { input: createNewPostInput },
+          authMode: "AMAZON_COGNITO_USER_POOLS",
+        })) as { data: CreatePostMutation };
+
+        console.log("New post created: ", createNewPost);
+
+        router.push(`/post/${createNewPost.data.createPost.id}`);
+      } catch (error) {
+        console.log("Error uploading file: ", error);
+      }
+    }
   };
 
   return (
@@ -71,7 +109,7 @@ const Create = (props: Props) => {
               </Grid>
 
               <Grid item>
-                <ImageDropzone />
+                <ImageDropzone file={file} setFile={setFile} />
               </Grid>
 
               <Grid item>

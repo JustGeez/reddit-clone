@@ -1,42 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDropzone } from "react-dropzone";
-import NextImage from "next/image";
 import { ButtonBase, Paper } from "@mui/material";
 import { Box } from "@mui/system";
+import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
 
-interface Props {}
+interface Props {
+  file: File;
+  setFile: React.Dispatch<React.SetStateAction<File>>;
+}
 
-const ImageDropzone = (props: Props) => {
-  const [files, setFiles] = useState([]);
+const ImageDropzone = ({ file, setFile }: Props) => {
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles: 1,
     accept: "image/*",
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      );
+      setFile(acceptedFiles[0]);
     },
   });
 
-  const thumbs = files.map((file) => (
-    <div key={file.name}>
-      <div>
-        <NextImage src={file.preview} width={450} height={300} />
-      </div>
-    </div>
-  ));
+  let thumbs: ReactJSXElement;
 
-  useEffect(
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
+  if (file) {
+    thumbs = (
+      <div key={file.name}>
+        <div>
+          <img src={URL.createObjectURL(file)} width="100%" height="auto" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ButtonBase sx={{ width: "100%" }}>
