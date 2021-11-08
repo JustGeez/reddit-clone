@@ -10,7 +10,7 @@ export const CommentView = ({ comment }: Props) => {
   console.log(comment);
 
   return (
-    <Paper sx={{ width: "100%", minHeight: 120 }}>
+    <Paper sx={{ width: "100%", minHeight: 120, marginTop: 2 }}>
       <Grid container spacing={1} direction="column">
         <Grid item>
           <Typography variant="body1">
