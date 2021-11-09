@@ -9,8 +9,6 @@ export const onCreatePost = /* GraphQL */ `
       title
       contents
       image
-      upvotes
-      downvotes
       createdAt
       updatedAt
       owner
@@ -21,6 +19,35 @@ export const onCreatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      votes {
+        items {
+          id
+          vote
+          postID
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
           owner
         }
         nextToken
@@ -35,8 +62,6 @@ export const onUpdatePost = /* GraphQL */ `
       title
       contents
       image
-      upvotes
-      downvotes
       createdAt
       updatedAt
       owner
@@ -47,6 +72,35 @@ export const onUpdatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      votes {
+        items {
+          id
+          vote
+          postID
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
           owner
         }
         nextToken
@@ -61,8 +115,6 @@ export const onDeletePost = /* GraphQL */ `
       title
       contents
       image
-      upvotes
-      downvotes
       createdAt
       updatedAt
       owner
@@ -73,6 +125,35 @@ export const onDeletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
+          owner
+        }
+        nextToken
+      }
+      votes {
+        items {
+          id
+          vote
+          postID
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            contents
+            image
+            createdAt
+            updatedAt
+            owner
+          }
           owner
         }
         nextToken
@@ -93,12 +174,29 @@ export const onCreateComment = /* GraphQL */ `
         title
         contents
         image
-        upvotes
-        downvotes
         createdAt
         updatedAt
         owner
         comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
       }
@@ -119,12 +217,29 @@ export const onUpdateComment = /* GraphQL */ `
         title
         contents
         image
-        upvotes
-        downvotes
         createdAt
         updatedAt
         owner
         comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
       }
@@ -145,12 +260,158 @@ export const onDeleteComment = /* GraphQL */ `
         title
         contents
         image
-        upvotes
-        downvotes
         createdAt
         updatedAt
         owner
         comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const onCreateVote = /* GraphQL */ `
+  subscription OnCreateVote {
+    onCreateVote {
+      id
+      vote
+      postID
+      createdAt
+      updatedAt
+      post {
+        id
+        title
+        contents
+        image
+        createdAt
+        updatedAt
+        owner
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const onUpdateVote = /* GraphQL */ `
+  subscription OnUpdateVote {
+    onUpdateVote {
+      id
+      vote
+      postID
+      createdAt
+      updatedAt
+      post {
+        id
+        title
+        contents
+        image
+        createdAt
+        updatedAt
+        owner
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+      }
+      owner
+    }
+  }
+`;
+export const onDeleteVote = /* GraphQL */ `
+  subscription OnDeleteVote {
+    onDeleteVote {
+      id
+      vote
+      postID
+      createdAt
+      updatedAt
+      post {
+        id
+        title
+        contents
+        image
+        createdAt
+        updatedAt
+        owner
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
+        votes {
+          items {
+            id
+            vote
+            postID
+            createdAt
+            updatedAt
+            owner
+          }
           nextToken
         }
       }

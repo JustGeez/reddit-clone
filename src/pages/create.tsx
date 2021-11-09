@@ -1,6 +1,6 @@
 import Storage from "@aws-amplify/storage";
 import { Button, Container, Grid, Paper, TextField, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ImageDropzone from "../components/ImageDropzone";
 import { v4 as uuidv4 } from "uuid";
@@ -46,8 +46,6 @@ const Create = (props: Props) => {
           title: data.title,
           contents: data.content,
           image: imagePath,
-          upvotes: 0,
-          downvotes: 0,
         };
 
         const createNewPost = (await API.graphql({
@@ -67,8 +65,6 @@ const Create = (props: Props) => {
         const createNewPostInput: CreatePostInput = {
           title: data.title,
           contents: data.content,
-          upvotes: 0,
-          downvotes: 0,
         };
 
         const createNewPost = (await API.graphql({

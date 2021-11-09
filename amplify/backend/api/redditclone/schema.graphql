@@ -11,8 +11,7 @@ type Post
   title: String!
   contents: String!
   image: String
-  upvotes: Int!
-  downvotes: Int!
+  votes: [Vote!]! @connection(keyName: "byVote", fields: ["id"])
   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
 }
 
@@ -30,4 +29,21 @@ type Comment
   postID: ID!
   post: Post @connection(fields: ["postID"])
   content: String!
+}
+
+type Vote
+  @model
+  @key(name: "byVote", fields: ["postID", "vote"])
+  @auth(
+    rules: [
+      { allow: owner, ownerField: "owner", operations: [create, read, update, delete] }
+      { allow: private, operations: [read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  # owner: (auto provided)
+  id: ID!
+  vote: String!
+  postID: ID!
+  post: Post @connection(fields: ["postID"])
 }
