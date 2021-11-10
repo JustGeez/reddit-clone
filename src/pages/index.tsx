@@ -6,7 +6,6 @@ import { useUser } from "../context/AuthContext";
 import { ListPostsQuery, Post } from "../API";
 import { listPosts } from "../graphql/queries";
 import PostPreview from "../components/PostPreview";
-import Header from "../components/Header";
 import Layout from "../components/Layout";
 
 const Home: NextPage = () => {

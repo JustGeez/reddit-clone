@@ -8,7 +8,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useUser } from "../context/AuthContext";
-import { Button, ButtonBase, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import Auth from "@aws-amplify/auth";
 import { useRouter } from "next/router";
 import NextLink from "next/link";

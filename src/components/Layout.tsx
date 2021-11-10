@@ -1,5 +1,5 @@
 import { Container } from "@mui/material";
-import React, { ReactChildren, ReactElement } from "react";
+import React, { ReactElement } from "react";
 import Header from "./Header";
 
 interface Props {
